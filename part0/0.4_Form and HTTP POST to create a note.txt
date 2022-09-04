@@ -1,0 +1,31 @@
+title Part 0.4::Form and HTTP POST to create a note
+
+Browser->Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note Body{note: "another note"}
+note over Server
+Reads request body 
+then Creates a new note 
+then Add it to notes array
+end note
+Server-->Browser: 302 Redirect Browser to /notes
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fr/exampleapp/notes
+Server-->Browser: HTML Code
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->Browser: CSS Code
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server-->Browser: JS Code
+
+note over Browser 
+Browser executes JS Code that requests notes from Server as JSON
+end note
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes.json
+Server-->Browser: JSON [{content: "note", date: "2022-09-04"}, ....., {content: "another note", date: "2022-09-04"}]
+
+note over Browser 
+event "JSON data received"
+Iterates over notes and adds each of them into the DOM
+end note
+

@@ -1,0 +1,26 @@
+title Part 0.5::Single Page Application
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+Server-->Browser: spa.html (HTML Code)
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server-->Browser: main.css (CSS Code)
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+Server-->Browser: spa.js (JS Code)
+
+note over Browser 
+Browser defines an empty local list of notes
+Browser executes JS Code that requests notes from Server as JSON
+Browser attaches submit event on note form
+end note
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes.json
+Server-->Browser: JSON [{content: "note", date: "2022-09-04"}, ....., {content: "another note", date: "2022-09-04"}]
+
+note over Browser 
+event "JSON data received"
+Adds notes in local notes list
+Executes redrawNotes function that Iterates over local notes list and adds each of them into the DOM
+end note
+

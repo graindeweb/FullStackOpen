@@ -1,0 +1,17 @@
+title Part 0.6::Single Page Application Form Submit
+
+note over Browser 
+event "form submit"
+Adds new note to local notes list
+Executes redrawNotes function that clears then rerenders notes list
+end note
+
+Browser->Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa  Body{"content": "test","date": "2022-09-04T22:08:51.040Z"}
+note over Server 
+Adds note to notes array
+end note
+Server-->Browser: 201 JSON {message: "note created"}
+
+
+note over Browser
+logs response to console
