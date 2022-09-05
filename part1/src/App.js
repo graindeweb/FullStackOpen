@@ -23,9 +23,18 @@ const Content = (props) => {
 }
 
 const Total = (props) => {
+  // Computing total in a simple way
+  let total = 0
+  props.parts.forEach((part) => (total += part.subtotal))
+
+  // Same in a prettier way
+  const total2 = props.parts
+    .map((part) => part.subtotal)
+    .reduce((previousVal, currentVal) => previousVal + currentVal, 0)
+
   return (
     <p>
-      <strong>Number of exercices {props.total}</strong>
+      <strong>Number of exercices {total2}</strong>
     </p>
   )
 }
@@ -38,20 +47,11 @@ const App = () => {
     { title: "State of a component", subtotal: 14 },
   ]
 
-  // Computing total in a simple way
-  let total = 0
-  parts.forEach((part) => (total += part.subtotal))
-
-  // Same in a prettier way
-  const total2 = parts
-    .map(part => part.subtotal)
-    .reduce((previousVal, currentVal) => previousVal + currentVal, 0)
-
   return (
     <div>
       <Header course={course} />
       <Content parts={parts} />
-      <Total total={total2} />
+      <Total parts={parts} />
     </div>
   )
 }
