@@ -23,7 +23,7 @@ const Result = ({ text, count }) => {
   )
 }
 
-const Statistics = ({feedbacks}) => {
+const Statistics = ({ feedbacks }) => {
   const total = Object.values(feedbacks).reduce((p, v) => p + v, 0)
 
   const computeAverage = () => {
@@ -35,12 +35,18 @@ const Statistics = ({feedbacks}) => {
   }
   return (
     <section>
-      <Result text={statTypes["good"]} count={feedbacks.good} />
-      <Result text={statTypes["neutral"]} count={feedbacks.neutral} />
-      <Result text={statTypes["bad"]} count={feedbacks.bad} />
-      <Result text="All" count={total} />
-      <Result text="Average" count={computeAverage()} />
-      <Result text="Positive" count={`${computePositive()} %`} />
+      {total ? (
+        <>
+          <Result text={statTypes["good"]} count={feedbacks.good} />
+          <Result text={statTypes["neutral"]} count={feedbacks.neutral} />
+          <Result text={statTypes["bad"]} count={feedbacks.bad} />
+          <Result text="All" count={total} />
+          <Result text="Average" count={computeAverage()} />
+          <Result text="Positive" count={`${computePositive()} %`} />
+        </>
+      ) : (
+        <p>No feedback given</p>
+      )}
     </section>
   )
 }
@@ -69,7 +75,6 @@ function App() {
     }
   }
 
-
   return (
     <div>
       <Header title="give feedback" />
@@ -78,7 +83,7 @@ function App() {
       ))}
 
       <Header title="statistics" />
-      <Statistics feedbacks={{good: good, bad: bad, neutral: neutral}} />
+      <Statistics feedbacks={{ good: good, bad: bad, neutral: neutral }} />
     </div>
   )
 }
