@@ -16,10 +16,10 @@ const Button = ({ text, onClick }) => {
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <p>
-      <span>{text}: </span>
-      <span>{value}</span>
-    </p>
+    <tr>
+      <th>{text}: </th>
+      <td>{value}</td>
+    </tr>
   )
 }
 
@@ -36,14 +36,16 @@ const Statistics = ({ feedbacks }) => {
   return (
     <section>
       {total ? (
-        <>
-          <StatisticLine text={statTypes["good"]} value={feedbacks.good} />
-          <StatisticLine text={statTypes["neutral"]} value={feedbacks.neutral} />
-          <StatisticLine text={statTypes["bad"]} value={feedbacks.bad} />
-          <StatisticLine text="All" value={total} />
-          <StatisticLine text="Average" value={computeAverage()} />
-          <StatisticLine text="Positive" value={`${computePositive()} %`} />
-        </>
+        <table>
+          <tbody>
+            <StatisticLine text={statTypes["good"]} value={feedbacks.good} />
+            <StatisticLine text={statTypes["neutral"]} value={feedbacks.neutral} />
+            <StatisticLine text={statTypes["bad"]} value={feedbacks.bad} />
+            <StatisticLine text="All" value={total} />
+            <StatisticLine text="Average" value={computeAverage()} />
+            <StatisticLine text="Positive" value={`${computePositive()} %`} />
+          </tbody>
+        </table>
       ) : (
         <p>No feedback given</p>
       )}
