@@ -14,11 +14,11 @@ const Button = ({ text, onClick }) => {
   return <button onClick={onClick}>{text}</button>
 }
 
-const Result = ({ text, count }) => {
+const StatisticLine = ({ text, value }) => {
   return (
     <p>
       <span>{text}: </span>
-      <span>{count}</span>
+      <span>{value}</span>
     </p>
   )
 }
@@ -37,12 +37,12 @@ const Statistics = ({ feedbacks }) => {
     <section>
       {total ? (
         <>
-          <Result text={statTypes["good"]} count={feedbacks.good} />
-          <Result text={statTypes["neutral"]} count={feedbacks.neutral} />
-          <Result text={statTypes["bad"]} count={feedbacks.bad} />
-          <Result text="All" count={total} />
-          <Result text="Average" count={computeAverage()} />
-          <Result text="Positive" count={`${computePositive()} %`} />
+          <StatisticLine text={statTypes["good"]} value={feedbacks.good} />
+          <StatisticLine text={statTypes["neutral"]} value={feedbacks.neutral} />
+          <StatisticLine text={statTypes["bad"]} value={feedbacks.bad} />
+          <StatisticLine text="All" value={total} />
+          <StatisticLine text="Average" value={computeAverage()} />
+          <StatisticLine text="Positive" value={`${computePositive()} %`} />
         </>
       ) : (
         <p>No feedback given</p>
