@@ -17,7 +17,7 @@ const Button = ({ text, onClick }) => {
 const StatisticLine = ({ text, value }) => {
   return (
     <tr>
-      <th>{text}: </th>
+      <th style={{textAlign: "left"}}>{text} </th>
       <td>{value}</td>
     </tr>
   )
@@ -85,7 +85,7 @@ function App() {
       ))}
 
       <Header title="statistics" />
-      <Statistics feedbacks={{ good: good, bad: bad, neutral: neutral }} />
+      <Statistics feedbacks={{ good, bad, neutral }} />
     </div>
   )
 }
