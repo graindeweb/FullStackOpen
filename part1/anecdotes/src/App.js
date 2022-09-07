@@ -4,6 +4,15 @@ const Button = ({text, onClick}) => {
   return <button onClick={onClick}>{text}</button>
 }
 
+const Section = ({title, children}) => {
+  return (
+    <section>
+      <h2>{title}</h2>
+      <div>{children}</div>
+    </section>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -16,8 +25,9 @@ const App = () => {
   ]
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
+  const [maxPoints, setMaxPoints] = useState(0)
 
-  const newAnecdoteHandler = () => {
+  const nextAnecdoteHandler = () => {
     const randIndex = Math.floor( Math.random() * anecdotes.length )
     setSelected(randIndex)
   }
@@ -26,20 +36,24 @@ const App = () => {
     const copy = [ ...points ]
     copy[selected]++
     setPoints(copy)
+    setMaxPoints(Math.max(...copy))
   }
 
   return (
     <div>
-      <section>
-        <p>
-          {anecdotes[selected]}
-        </p>
-      </section>
-      <aside>has {`${points[selected]} vote${points[selected] > 1 ? 's' : ''}`}</aside>
-      <Button onClick={addVoteHandler} text="Vote +1" />
-      <Button onClick={newAnecdoteHandler} text="Next anecdote"/>
+      <Section title="Anecdote of the day">
+        <p>{anecdotes[selected]}</p>
+        <aside>has {`${points[selected]} vote${points[selected] > 1 ? "s" : ""}`}</aside>
+        <Button onClick={addVoteHandler} text="Vote +1" />
+        <Button onClick={nextAnecdoteHandler} text="Next anecdote" />
+      </Section>
+
+      <Section title="Top rated Anecdote">
+        <p>{anecdotes[points.lastIndexOf(maxPoints)]}</p>
+        <aside>with {`${maxPoints} vote${maxPoints > 1 ? "s" : ""}`}</aside>
+      </Section>
     </div>
-  );
+  )
 }
 
 export default App;
