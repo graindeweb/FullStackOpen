@@ -25,7 +25,8 @@ const App = () => {
   ]
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
-  const [maxPoints, setMaxPoints] = useState(0)
+
+  const mostRatedIndex = points.lastIndexOf(Math.max(...points))
 
   const nextAnecdoteHandler = () => {
     const randIndex = Math.floor( Math.random() * anecdotes.length )
@@ -36,7 +37,6 @@ const App = () => {
     const copy = [ ...points ]
     copy[selected]++
     setPoints(copy)
-    setMaxPoints(Math.max(...copy))
   }
 
   return (
@@ -49,8 +49,10 @@ const App = () => {
       </Section>
 
       <Section title="Top rated Anecdote">
-        <p>{anecdotes[points.lastIndexOf(maxPoints)]}</p>
-        <aside>with {`${maxPoints} vote${maxPoints > 1 ? "s" : ""}`}</aside>
+        <p>{anecdotes[mostRatedIndex]}</p>
+        <aside>
+          with {`${points[mostRatedIndex]} vote${points[mostRatedIndex] > 1 ? "s" : ""}`}
+        </aside>
       </Section>
     </div>
   )
