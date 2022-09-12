@@ -21,7 +21,7 @@ const App = () => {
         id: 3
       },
       {
-        name: 'Ad cillum occaecat nostrud id id commodo nulla dolor sit.',
+        name: 'Redux',
         exercises: 24,
         id: 4
       }
