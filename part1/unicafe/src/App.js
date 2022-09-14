@@ -80,8 +80,8 @@ function App() {
   return (
     <div>
       <Header title="give feedback" />
-      {Object.keys(statTypes).map((type) => (
-        <Button text={statTypes[type]} onClick={factoryIncrementator(type)} />
+      {Object.keys(statTypes).map((type, i) => (
+        <Button key={i} text={statTypes[type]} onClick={factoryIncrementator(type)} />
       ))}
 
       <Header title="statistics" />
