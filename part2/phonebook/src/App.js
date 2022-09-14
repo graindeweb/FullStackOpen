@@ -1,17 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AddPersonForm } from "./components/AddPersonForm"
 import { Persons } from "./components/Persons"
 import { Search } from "./components/Search"
 
+import axios from "axios"
+
+const wsURL = "http://localhost:3001/persons"
+
 function App() {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "0659142631", id: 1 },
-    { name: "Baptiste PFEFFERKORN", phone: "0659142631", id: 2 },
-    { name: "Anelor FAVIER", phone: "0659142631", id: 3 },
-    { name: "Maëlie PFEFFERKORN", phone: "0659142631", id: 4 },
-    { name: "Soën PFEFFERKORN", phone: "0659142631", id: 5 },
-  ])
+  const [persons, setPersons] = useState([])
   const [searchValue, setSearchValue] = useState("")
+
+  useEffect(() => {
+    axios.get(wsURL).then((response) => {
+      setPersons(response.data)
+    })
+  }, [])
 
   const addPerson = (name, phone) => {
     if (persons.find((person) => person.name === name)) {
