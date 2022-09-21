@@ -3,37 +3,52 @@ import { AddPersonForm } from "./components/AddPersonForm"
 import { Persons } from "./components/Persons"
 import { Search } from "./components/Search"
 
-import axios from "axios"
-
-const wsURL = "http://localhost:3001/persons"
+import personService from "./services/persons"
 
 function App() {
   const [persons, setPersons] = useState([])
   const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
-    axios.get(wsURL).then((response) => {
-      setPersons(response.data)
-    })
+    personService
+      .getAll()
+      .then((persons) => setPersons(persons))
+      .catch(err => { console.log(err)} )
   }, [])
 
   const addPerson = (name, phone) => {
-    if (persons.find((person) => person.name === name)) {
+    const existingPerson = persons.find((person) => person.name === name)
+
+    if (existingPerson) {
+      if (window.confirm(`${name} already exists in phonebook. Would you like to update phone?`)) {
+        personService
+          .update(existingPerson.id, {phone: phone})
+          .then((person) => setPersons(persons.map(p => p.name === name ? person : p)))
+          .catch(err => { console.log(err)} )
+
+        return
+      } 
       return false
     }
 
     const uuid =
       Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 
-    setPersons(
-      persons.concat({
+    personService
+      .create({
         name,
         phone,
-        id: uuid,
+        uuid,
       })
-    )
+      .then((person) => setPersons(persons.concat(person)))
+      .catch(err => { console.log(err)} )
+  }
 
-    return persons
+  const delPerson = (id) => {
+    personService
+      .remove(id)
+      .then(response => setPersons(persons.filter(person => person.id !== id)))
+      .catch(err => { console.log(err)} )
   }
 
   const handleSearchChange = (event) => {
@@ -55,7 +70,7 @@ function App() {
       <AddPersonForm addPersonHandler={addPerson} />
 
       <h3>Numbers</h3>
-      <Persons filteredPersons={filteredPersons()} />
+      <Persons filteredPersons={filteredPersons()} handlers={{delPerson}} />
     </div>
   )
 }

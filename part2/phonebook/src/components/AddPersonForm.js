@@ -4,12 +4,12 @@ export const AddPersonForm = ({ addPersonHandler }) => {
   const [newName, setNewName] = useState("")
   const [newPhone, setNewPhone] = useState("")
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
+  const handleNameChange = (e) => {
+    setNewName(e.target.value)
   }
 
-  const handlePhoneChange = (event) => {
-    setNewPhone(event.target.value)
+  const handlePhoneChange = (e) => {
+    setNewPhone(e.target.value)
   }
 
   const clearForm = () => {
@@ -17,14 +17,12 @@ export const AddPersonForm = ({ addPersonHandler }) => {
     setNewPhone("")
   }
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault()
+  const onSubmitHandler = (e) => {
+    e.preventDefault()
     if (newName.trim() === "" || newPhone.trim() === "") {
       alert("You must give a name AND a phone number to new contact!")
     } else {
-      if (addPersonHandler(newName, newPhone) === false) {
-        alert(`${newName} is already added to phonebook`)
-      } else {
+      if (addPersonHandler(newName, newPhone) !== false) {
         clearForm()
       }
     }
