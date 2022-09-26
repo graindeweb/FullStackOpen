@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-export const AddPersonForm = ({ addPersonHandler }) => {
+export const AddPersonForm = ({ addPersonHandler, errorNotifier }) => {
   const [newName, setNewName] = useState("")
   const [newPhone, setNewPhone] = useState("")
 
@@ -20,7 +20,7 @@ export const AddPersonForm = ({ addPersonHandler }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault()
     if (newName.trim() === "" || newPhone.trim() === "") {
-      alert("You must give a name AND a phone number to new contact!")
+      errorNotifier("You must give a name AND a phone number to new contact!")
     } else {
       if (addPersonHandler(newName, newPhone) !== false) {
         clearForm()
