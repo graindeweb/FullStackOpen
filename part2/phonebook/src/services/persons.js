@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const wsURL = "http://localhost:3000/persons"
+const wsURL = "/api/persons"
 
 const create = (newPerson) => {
   return axios.post(wsURL, newPerson).then((response) => response.data)
