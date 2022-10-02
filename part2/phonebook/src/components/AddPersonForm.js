@@ -22,9 +22,7 @@ export const AddPersonForm = ({ addPersonHandler, errorNotifier }) => {
     if (newName.trim() === "" || newPhone.trim() === "") {
       errorNotifier("You must give a name AND a phone number to new contact!")
     } else {
-      if (addPersonHandler(newName, newPhone) !== false) {
-        clearForm()
-      }
+      addPersonHandler(newName, newPhone, clearForm)
     }
   }
 

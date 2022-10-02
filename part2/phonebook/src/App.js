@@ -35,7 +35,7 @@ function App() {
   const notifyError = (message) => notify(message, "error")
   const notifySuccess = (message) => notify(message, "success")
 
-  const addPerson = (name, phone) => {
+  const addPerson = (name, phone, onSuccess) => {
     if (name.trim() === "" || phone.trim() === "") {
       notifyError("Name and Phone must be filled!")
       return false
@@ -49,12 +49,12 @@ function App() {
           .then((person) => {
             setPersons(persons.map((p) => (p.name === name ? person : p)))
             notifySuccess(`${name} has been updated!`)
+            onSuccess()
           })
           .catch((err) => notifyError(`An error occured during update! ${err.response.data.error}`))
-
-        return
       }
-      return false
+      
+      return
     }
 
     const uuid =
@@ -69,6 +69,7 @@ function App() {
       .then((person) => {
         setPersons(persons.concat(person))
         notifySuccess(`${name} has been added!`)
+        onSuccess()
       })
       .catch((err) => notifyError(`An error occured during update! ${err.response.data.error}`))
   }
