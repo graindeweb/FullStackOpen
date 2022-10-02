@@ -11,7 +11,7 @@ const getAll = () => {
 }
 
 const update = (personId, attributes) => {
-  return axios.patch(`${wsURL}/${personId}`, attributes).then((response) => response.data)
+  return axios.put(`${wsURL}/${personId}`, attributes).then((response) => response.data)
 }
 
 const remove = (personId) => {

@@ -50,7 +50,7 @@ function App() {
             setPersons(persons.map((p) => (p.name === name ? person : p)))
             notifySuccess(`${name} has been updated!`)
           })
-          .catch((err) => notifyError("An error occured during update !"))
+          .catch((err) => notifyError(`An error occured during update! ${err.response.data.error}`))
 
         return
       }
@@ -70,7 +70,7 @@ function App() {
         setPersons(persons.concat(person))
         notifySuccess(`${name} has been added!`)
       })
-      .catch((err) => notifyError("An error occured during update !"))
+      .catch((err) => notifyError(`An error occured during update! ${err.response.data.error}`))
   }
 
   const delPerson = (id) => {
